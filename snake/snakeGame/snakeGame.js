@@ -5,10 +5,20 @@ let bg;
 
 function setup() {
   
-  createCanvas(600, 600);
+  createCanvas(1350, 600);
   s = new Snake();
-  frameRate(7); //snake animation rate
+  frameRate(10); //snake animation rate
   pickLocation(); //location of food in each frame
+
+}
+
+function pickLocation(){ //pick ranodm position on canvas for food
+
+  let cols = floor( width/scl );
+  let rows = floor( height/scl );
+  
+  food = createVector( floor(random(cols)), floor(random(rows)) ); //location for the food
+  food.mult(scl); //multiply each vector element by the scale
 
 }
 
@@ -20,6 +30,8 @@ function draw() {
   if( s.eat(food) ){
     pickLocation();
    }
+   
+  s.death();
   
   s.update();
   s.show();
@@ -29,16 +41,6 @@ function draw() {
   fill(255, 0, 100);
   ellipseMode(CORNER); //make snake overlap food upon eating
   ellipse(food.x, food.y, scl, scl); //food visual
-
-}
-
-function pickLocation(){ //pick ranodm position on canvas for food
-
-  let cols = floor( width/scl );
-  let rows = floor( height/scl );
-  
-  food = createVector( floor(random(cols)), floor(random(rows)) ); //location for the food
-  food.mult(scl); //multiply each vector element by the scale
 
 }
 
